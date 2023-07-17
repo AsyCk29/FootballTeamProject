@@ -1,20 +1,14 @@
 package com.team.services;
 
 import com.team.entities.Player;
-import com.team.entities.TeamA;
-import com.team.entities.dto.TeamDto;
 import com.team.repositories.PlayerRepository;
 import com.team.utils.Rest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service

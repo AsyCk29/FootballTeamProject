@@ -1,7 +1,5 @@
 package com.team.controllers;
 
-import com.team.entities.Player;
-import com.team.entities.dto.TeamDto;
 import com.team.entities.dto.TeamKAdroDto;
 import com.team.entities.dto.TeamYedekKAdroDto;
 import com.team.services.TeamService;
@@ -11,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,8 +18,8 @@ public class TeamRestController {
     final TeamService teamService;
 
     @PostMapping("/teamRegister")
-    public ResponseEntity teamRegister(@Valid @RequestBody TeamDto teamDto) {
-        if (teamDto.getTeam().equals("A")) {
+    public ResponseEntity teamRegister(@Valid String team) {
+        if (team.equals("A")) {
             return teamService.teamAInsert();
         } else
             return teamService.teamBInsert();
