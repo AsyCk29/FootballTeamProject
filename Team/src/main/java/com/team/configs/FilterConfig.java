@@ -1,14 +1,16 @@
 package com.team.configs;
 
 
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
+
 
 @Configuration
 public class FilterConfig implements Filter {
@@ -50,7 +52,11 @@ public class FilterConfig implements Filter {
                 res.setStatus(401);
 
             } else {
-                filterChain.doFilter(req, res);
+                try {
+                    filterChain.doFilter(req, res);
+                } catch (ServletException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         } else {

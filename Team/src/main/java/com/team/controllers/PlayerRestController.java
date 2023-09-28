@@ -2,11 +2,12 @@ package com.team.controllers;
 
 import com.team.entities.Player;
 import com.team.services.PlayerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 
 /**
  * @author Asiye Çak
@@ -29,6 +30,10 @@ public class PlayerRestController {
     @GetMapping("/deleteAllPlayer")
     public ResponseEntity deleteAllPlayer() {
         return playerService.deleteAllPlayer();
+    }
+    @GetMapping("/listAllPlayer")
+    public ResponseEntity listAllPlayer() {
+        return playerService.listAllPlayer();
     }
 
 

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Service
@@ -62,7 +62,10 @@ public class PlayerService {
         playerRepository.deleteAll();
         return ResponseEntity.ok().body("Delete Başarılı");
     }
-
+    public ResponseEntity listAllPlayer(){
+        playerRepository.findAll();
+        return Rest.success(playerRepository.findAll(),"Başarılı");
+    }
 
 
 }

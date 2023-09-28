@@ -18,7 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,19 +38,31 @@ public class TeamService {
         if (fid == null) {
             return Rest.fail(null, "Oturum Bilgisi Alınamadı !!!.", HttpStatus.BAD_REQUEST);
         }
-        Optional<Player> player = playerService.playerRepository.findById(fid);
-        Optional<TeamB> teamB = teamRepositoryB.findById(player.get().getFid());
-        if (teamB.isPresent()) {
-            return Rest.fail(teamB.get().getPlayer(), "Bu Oyuncu B Takımı Kadrosunda !!!.", HttpStatus.BAD_REQUEST);
-        }
 
-        Optional<TeamA> teamA1 = teamRepositoryA.findById(player.get().getFid());
-        if (teamA1.isPresent()) {
-            return Rest.fail(teamA1.get().getPlayer(), "Bu Takıma Daha Önce Kayıt Yapılmış.", HttpStatus.BAD_REQUEST);
-        }
+        List <TeamB> teamPlayers = teamRepositoryB.findAll().stream().toList() ;
+
+        if(!teamPlayers.isEmpty())
+
+            for (int i = 0; i < teamPlayers.size(); i++) {
+                System.out.println("PLAYER fid :: "+teamPlayers.get(i).getPlayer().get(i).getFid());
+                if (teamPlayers.get(i).getPlayer().get(i).getFid().equals(fid))
+                    return Rest.fail(teamPlayers.get(i), "Bu Oyuncu B Takımı Kadrosunda !!!.", HttpStatus.BAD_REQUEST);
+            }
+
+
+        List <TeamA> teamPlayers2 = teamRepositoryA.findAll().stream().toList() ;
+
+        if(!teamPlayers2.isEmpty())
+
+            for (int i = 0; i < teamPlayers2.size(); i++) {
+                System.out.println("PLAYER fid :: "+teamPlayers2.get(i).getPlayer().get(i).getFid());
+                if (teamPlayers2.get(i).getPlayer().get(i).getFid().equals(fid))
+                    return Rest.fail(teamPlayers2.get(i), "Bu Oyuncu A Takımı Kadrosunda !!!.", HttpStatus.BAD_REQUEST);
+            }
 
         TeamA teamA = new TeamA();
         try {
+            Optional<Player> player = playerService.playerRepository.findById(fid);
             teamA.setPlayer(player.stream().toList());
             teamRepositoryA.save(teamA);
 
@@ -110,17 +122,32 @@ public class TeamService {
             return Rest.fail(null, "Oturum Bilgisi Alınamadı !!!.", HttpStatus.BAD_REQUEST);
         }
 
-        Optional<Player> player = playerService.playerRepository.findById(fid);
-        Optional<TeamB> teamB = teamRepositoryB.findById(player.get().getFid());
-        if (teamB.isPresent()) {
-            return Rest.fail(teamB.get().getPlayer(), "Bu Takıma Daha Önce Kayıt Yapılmış.", HttpStatus.BAD_REQUEST);
+        List <TeamB> teamPlayers = teamRepositoryB.findAll().stream().toList() ;
+
+        if(!teamPlayers.isEmpty())
+
+        for (int i = 0; i < teamPlayers.size(); i++) {
+            System.out.println("PLAYER fid :: "+teamPlayers.get(i).getPlayer().get(i).getFid());
+            if (teamPlayers.get(i).getPlayer().get(i).getFid().equals(fid))
+                return Rest.fail(teamPlayers.get(i), "Bu Oyuncu B Takımı Kadrosunda !!!.", HttpStatus.BAD_REQUEST);
         }
-        Optional<TeamA> teamA1 = teamRepositoryA.findById(player.get().getFid());
-        if (teamA1.isPresent()) {
-            return Rest.fail(teamA1.get().getPlayer(), "Bu Oyuncu A Takımı Kadrosunda !!!. ", HttpStatus.BAD_REQUEST);
-        }
+
+        List <TeamA> teamPlayers2 = teamRepositoryA.findAll().stream().toList() ;
+
+        if(!teamPlayers2.isEmpty())
+
+            for (int i = 0; i < teamPlayers2.size(); i++) {
+                System.out.println("PLAYER fid :: "+teamPlayers2.get(i).getPlayer().get(i).getFid());
+                if (teamPlayers2.get(i).getPlayer().get(i).getFid().equals(fid))
+                    return Rest.fail(teamPlayers2.get(i), "Bu Oyuncu A Takımı Kadrosunda !!!.", HttpStatus.BAD_REQUEST);
+            }
+
+
         TeamB teamB1 = new TeamB();
+        Optional<Player> player = playerService.playerRepository.findById(fid);
+
         try {
+
             teamB1.setPlayer(player.stream().toList());
             teamRepositoryB.save(teamB1);
             return Rest.success(player, "Başarılı");

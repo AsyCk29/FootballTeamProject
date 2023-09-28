@@ -2,11 +2,12 @@ package com.team.configs;
 
 
 import com.team.entities.Player;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.Optional;
 
 @Configuration

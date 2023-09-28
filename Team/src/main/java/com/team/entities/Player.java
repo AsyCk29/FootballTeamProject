@@ -1,9 +1,10 @@
 package com.team.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+
 
 @Entity
 @Data
